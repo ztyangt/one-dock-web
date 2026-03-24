@@ -1,0 +1,236 @@
+@use 'sass:map';
+// 全局主题变量配置 误删 ！！！
+$white-color: #fff;
+$black-color: #000;
+
+// 主题色
+$base-success: #40b308;
+$base-warning: #faad14;
+$base-danger: #e64340;
+$base-error: #db2828;
+$base-info: #909399;
+
+//圆角
+$base-border-radius: 5px;
+
+// 日夜间主题模式
+$curTheme: light;
+
+$themes: (
+  light: (
+    themeColor: #2d5cf6,
+    mainBg: #f3f4f8,
+    iconColor: #a5aecd,
+    mainColor: #f2f5f7,
+    cardBg: #ffffff,
+    secondaryBg: #f0f2f9,
+    textColor: #1d2556,
+    textColor2: #636e96,
+    weightColor: #1d2556,
+    pureColor: #000,
+    // 反色
+    inverseColor: #fff,
+    borderColor: #c4c4c435,
+    lightBorder: #e6e6e6,
+    mutedColor: #abaec1,
+    titleColor: #2d3670,
+    keyColor: #333333,
+    rippleColor: #969ab1,
+    scrollColor: #dddee0,
+    tableBg: #fcfcfc,
+    secondaryColor: #828282,
+
+    shadow: rgba(0, 0, 0, 0.09) 0px 1px 20px 0px
+  ),
+  dark: (
+    themeColor: #4d7cf7,
+    mainBg: #1c1f27,
+    iconColor: #8488a2,
+    mainColor: #21252c,
+    cardBg: #292d37,
+    secondaryBg: #353a48,
+    weightColor: #ffffff,
+    textColor: #ddddfa,
+    textColor2: #70799b,
+    pureColor: #fff,
+    inverseColor: #000,
+    secondaryColor: #a2a2a4,
+
+    borderColor: #343942,
+    lightBorder: #4b4e53,
+    mutedColor: #6f7581,
+    titleColor: #e4ecf9,
+    keyColor: #f8fafc,
+    rippleColor: #b3b3cf,
+    scrollColor: #4b4e53,
+    tableBg: #292d35,
+    shadow: rgba(0, 0, 0, 0.4) 0px 1px 20px 0px
+  )
+);
+
+@function getVal($key) {
+  $themeMap: map.get($themes, $curTheme);
+  @return map.get($themeMap, $key);
+}
+
+@mixin useTheme() {
+  @each $key, $value in $themes {
+    $curTheme: $key !global;
+    // html[data-theme="#{$key}"] & {
+    //   @content;
+    // }
+    html.#{$key} & {
+      @content;
+    }
+  }
+}
+
+body {
+  @include useTheme {
+    --main-bg: #{getVal(mainBg)};
+    --pure-color: #{getVal(pureColor)};
+    --icon-color: #{getVal(iconColor)};
+    --main-color: #{getVal(mainColor)};
+    --title-color: #{getVal(titleColor)};
+    --ripple-color: #{getVal(rippleColor)};
+    --secondary-bg: #{getVal(secondaryBg)};
+    --card-bg: #{getVal(cardBg)};
+    --weight-color: #{getVal(weightColor)};
+    --text-color: #{getVal(textColor)};
+    --text-color-2: #{getVal(textColor2)};
+    --border-color: #{getVal(borderColor)};
+    --light-border: #{getVal(lightBorder)};
+    --key-color: #{getVal(keyColor)};
+    --table-bg: #{getVal(tableBg)};
+    --shadow: #{getVal(shadow)};
+    --pure-light-bg: #{rgba(getVal(pureColor), 0.04)};
+    --secondary-color: #{getVal(secondaryColor)};
+    --muted-color: #{getVal(mutedColor)};
+
+    --theme-color: #{getVal(themeColor)};
+
+    --color-bg-2: #{getVal(cardBg)};
+    --color-bg-3: #{getVal(cardBg)};
+    --color-bg-5: #{getVal(cardBg)};
+
+    @for $i from 1 through 9 {
+      --card-bg-opacity-#{$i}: #{rgba(getVal(cardBg), calc($i / 10))};
+      --theme-color-opacity-#{$i}: #{rgba(getVal(themeColor), calc($i / 10))};
+      // --color-primary-light-#{$i}: #{rgba(getVal(themeColor), calc($i / 10))};
+    }
+
+    --theme-hover-bg: #{rgba(getVal(themeColor), 0.1)};
+
+    color: var(--text-color);
+
+    .hover-weight {
+      &:hover {
+        color: getVal(weightColor);
+      }
+    }
+
+    .secondary-color {
+      color: getVal(secondaryColor);
+    }
+
+    .text-color {
+      color: getVal(textColor);
+    }
+    .text-color-2 {
+      color: getVal(textColor2);
+    }
+    .main-bg {
+      background-color: getVal(mainBg);
+    }
+    .muted-color {
+      color: getVal(mutedColor);
+    }
+    .delete-color {
+      color: var(--danger-color);
+    }
+    .border-color {
+      color: getVal(borderColor);
+    }
+    .light-border {
+      border: 1px solid getVal(lightBorder);
+    }
+    .scroll-color {
+      color: getVal(scrollColor);
+    }
+    .card-bg {
+      background-color: getVal(cardBg);
+    }
+    .card-border {
+      border: 1px solid getVal(cardBorder);
+    }
+    .card-shadow {
+      box-shadow: #{getVal(cardShadow)};
+    }
+    .hover-bg {
+      &:hover {
+        background-color: getVal(secondaryBg);
+      }
+    }
+
+    .secondary-bg {
+      background-color: getVal(secondaryBg);
+    }
+    .title-color {
+      color: getVal(titleColor);
+    }
+    .icon-color {
+      color: getVal(iconColor);
+    }
+    .shadow {
+      box-shadow: getVal(shadow);
+    }
+
+    .base-border {
+      border: 1px solid getVal(borderColor);
+    }
+
+    .pure-light-bg {
+      background-color: var(--pure-light-bg);
+    }
+
+    .hover-light-bg {
+      transition: all 0.3s;
+      &:hover {
+        background-color: var(--pure-light-bg);
+      }
+    }
+  }
+
+  .theme-hover {
+    transition: all 0.3s;
+    &:hover {
+      color: var(--theme-color) !important;
+    }
+  }
+
+  --plyr-color-main: var(--theme-color);
+  --plyr-menu-background: var(--card-bg);
+  --plyr-menu-color: var(--text-color);
+  --plyr-audio-control-color: var(--text-color);
+  --plyr-tooltip-color: var(--text-color);
+  --plyr-tooltip-background: var(--card-bg);
+}
+
+:root {
+  --success-color: #{$base-success};
+  --warning-color: #{$base-warning};
+  --danger-color: #{$base-danger};
+
+  .theme-color {
+    color: var(--theme-color);
+  }
+  .success-color {
+    color: var(--success-color);
+  }
+  .warning-color {
+    color: var(--warning-color);
+  }
+  .error-color {
+    color: var(--error-color);
+  }
+}

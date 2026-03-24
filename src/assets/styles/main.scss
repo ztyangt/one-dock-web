@@ -1,0 +1,160 @@
+html.dark {
+  background-color: #13161c;
+
+  .custom-loading-mask {
+    background-color: #0000008c !important;
+  }
+}
+
+html {
+  background-color: #f6f7fd;
+
+  .custom-loading-mask {
+    background-color: #ffffff8c !important;
+  }
+}
+
+body {
+  --border-radius: 4px;
+
+  --segmented-bg: var(--card-light-bg);
+  --segmented-thumb-bg: var(--theme-color);
+  --segmented-hover-color: var(--theme-color);
+  --segmented-selected-color: #fff;
+  --segmented-border-radius: 4px;
+
+  background-color: transparent !important;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* 隐藏所有元素的滚动条但保留滚动功能 */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 和 Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari 和 Opera */
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+::selection {
+  background-color: var(--theme-color) !important;
+  color: #fff;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  width: 100vw;
+  scroll-padding-top: 5.5rem;
+  font-size: 16px;
+  color: var(--text-color);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    SF Pro SC,
+    SF Pro Display,
+    SF Pro Icons,
+    PingFang SC,
+    Hiragino Sans GB,
+    Microsoft YaHei,
+    Helvetica Neue,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+// @media (max-width: 768px) {
+//   html {
+//     font-size: 15px;
+//   }
+// }
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.tab-btn {
+  border-radius: var(--border-radius);
+  padding: 5px 12px;
+  cursor: pointer;
+  &.active {
+    font-weight: 500;
+    outline: 1px solid var(--theme-color-opacity-2);
+    color: var(--theme-color);
+    background-color: var(--theme-color-opacity-1);
+  }
+  &:hover {
+    color: var(--theme-color);
+  }
+}
+
+.base-card {
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  transition: all 0.3s;
+
+  &.hover-shadow {
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+  }
+}
+
+.inset-0 {
+  inset: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.select-card-active {
+  outline: 1px solid var(--theme-color);
+  &::after {
+    border: 10px solid var(--theme-color);
+    border-block-start: 10px solid #0000;
+    border-inline-start: 10px solid #0000;
+    border-end-end-radius: 6px;
+    content: '';
+    height: 0;
+    inset-block-end: 2px;
+    inset-inline-end: 2px;
+    position: absolute;
+    width: 0;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.loading-overlay {
+  background-color: var(--card-bg) !important;
+}
+
+.no-event {
+  pointer-events: none;
+}
+
+.break-all {
+  word-break: break-all;
+}
