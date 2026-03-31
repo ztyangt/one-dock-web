@@ -1,7 +1,7 @@
 import http from '@/utils/request'
 import type { Pagination, ReturnId, Ids } from '@/types/comm'
 
-export class BaseApi<T> {
+export class BaseApi {
   private apiPrefix: string = '/api/'
 
   constructor(target: string) {
@@ -11,7 +11,7 @@ export class BaseApi<T> {
   /**
    * 获取指定数据
    */
-  take(params: any) {
+  take<T>(params: any) {
     return http.$get<T>(`${this.apiPrefix}`, params)
   }
 
@@ -19,7 +19,7 @@ export class BaseApi<T> {
    * 获取列表数据
    * @param params 查询参数
    */
-  list(params: any) {
+  list<T>(params: any) {
     return http.$get<Pagination<T>>(`${this.apiPrefix}/list`, params)
   }
 
@@ -27,7 +27,7 @@ export class BaseApi<T> {
    * 获取所有数据
    * @param params 查询参数
    */
-  all(params?: any) {
+  all<T>(params?: any) {
     return http.$get<T[]>(`${this.apiPrefix}/all`, params)
   }
 
@@ -35,7 +35,7 @@ export class BaseApi<T> {
    * 创建数据
    * @param params 创建参数
    */
-  create(params: any) {
+  create<T>(params: any) {
     return http.$post<ReturnId>(`${this.apiPrefix}`, params)
   }
 
@@ -84,4 +84,4 @@ export class BaseApi<T> {
   }
 }
 
-export type BaseApiType<T> = InstanceType<typeof BaseApi<T>>
+export type BaseApiType<T> = InstanceType<typeof BaseApi>

@@ -1,115 +1,138 @@
 import type { RouteRecordRaw } from 'vue-router'
 import AdminLayout from '@/layouts/admin/index.vue'
-import { transition } from '@vueuse/core'
 
 const ADMIN_ROUTES: RouteRecordRaw[] = [
   {
     path: '/admin',
     name: 'Admin',
     component: AdminLayout,
-    redirect: { name: 'admin-home' },
+    redirect: { name: 'admin-dashboard' },
     meta: { needLogin: true },
     children: [
       {
-        path: 'home',
-        name: 'admin-home',
-        component: () => import('@/views/admin/home/index.vue'),
-        meta: { title: '首页', icon: 'home-5-fill', color: '#f46bca' }
+        path: 'dashboard',
+        name: 'admin-dashboard',
+        component: () => import('@/views/admin/dashboard/index.vue'),
+        meta: { title: '仪表盘', icon: 'home-5-fill' },
       },
       {
-        path: 'user',
-        name: 'user',
-        component: () => import('@/views/admin/user/index.vue'),
-        meta: { title: '用户', icon: 'user-star-fill', color: '#cd463a' }
-      },
-      {
-        path: 'storage',
-        name: 'storage',
-        component: () => import('@/views/admin/storage/pages/index/index.vue'),
-        meta: {
-          title: '存储',
-          icon: 'file-upload-fill',
-          color: '#5fccab',
-          noKeepAlive: true,
-          noTransition: true
-        },
-        redirect: { name: 'storage-overview' },
+        path: 'life-ledger',
+        name: 'admin-life-ledger',
+        redirect: { name: 'admin-life-ledger-blog' },
+        meta: { title: '人生手账', icon: 'booklet-fill' },
         children: [
           {
-            path: 'overview',
-            name: 'storage-overview',
-            component: () => import('@/views/admin/storage/pages/overview/index.vue'),
-            meta: { title: '存储概览' }
+            path: 'blog',
+            name: 'admin-life-ledger-blog',
+            component: () => import('@/views/admin/life-ledger/blog/index.vue'),
+            meta: { title: '博客文章', icon: 'article-fill' },
           },
           {
+            path: 'memo',
+            name: 'admin-life-ledger-memo',
+            component: () => import('@/views/admin/life-ledger/memo/index.vue'),
+            meta: { title: '日常备忘', icon: 'sticky-note-fill' },
+          },
+          {
+            path: 'diary',
+            name: 'admin-life-ledger-diary',
+            component: () => import('@/views/admin/life-ledger/diary/index.vue'),
+            meta: { title: '心事日记', icon: 'quill-pen-fill' },
+          },
+          {
+            path: 'note',
+            name: 'admin-life-ledger-note',
+            component: () => import('@/views/admin/life-ledger/note/index.vue'),
+            meta: { title: '灵感笔记', icon: 'lightbulb-fill' },
+          },
+          {
+            path: 'album',
+            name: 'admin-life-ledger-album',
+            component: () => import('@/views/admin/life-ledger/album/index.vue'),
+            meta: { title: '光影相册', icon: 'image-2-fill' },
+          },
+          {
+            path: 'footprint',
+            name: 'admin-life-ledger-footprint',
+            component: () => import('@/views/admin/life-ledger/footprint/index.vue'),
+            meta: { title: '足迹打卡', icon: 'map-pin-time-fill' },
+          },
+        ],
+      },
+      {
+        path: 'file',
+        name: 'admin-file',
+        redirect: { name: 'admin-file-assets' },
+        meta: { title: '文件管理', icon: 'folder-5-fill' },
+        children: [
+          {
             path: 'list',
-            name: 'storage-list',
-            component: () => import('@/views/admin/storage/pages/list/index.vue'),
-            meta: { title: '文件管理' }
+            name: 'admin-file-list',
+            component: () => import('@/views/admin/file/list/index.vue'),
+            meta: { title: '文件列表', icon: 'file-list-3-fill' },
+          },
+          {
+            path: 'assets',
+            name: 'admin-file-assets',
+            component: () => import('@/views/admin/file/assets/index.vue'),
+            meta: { title: '文件资产', icon: 'folder-chart-fill' },
           },
           {
             path: 'strategy',
-            name: 'storage-strategy',
-            component: () => import('@/views/admin/storage/pages/strategy/index.vue'),
-            meta: { title: '存储策略' }
+            name: 'admin-file-strategy',
+            component: () => import('@/views/admin/file/strategy/index.vue'),
+            meta: { title: '统计策略', icon: 'database-2-fill' },
           },
           {
-            path: 'transfer',
-            name: 'storage-transfer',
-            component: () => import('@/views/admin/storage/pages/transfer/index.vue'),
-            meta: { title: '传输任务' }
+            path: 'upload',
+            name: 'admin-file-upload',
+            component: () => import('@/views/admin/file/upload/index.vue'),
+            meta: { title: '上传管理', icon: 'upload-cloud-2-fill' },
           },
-          {
-            path: 'recycle',
-            name: 'storage-recycle',
-            component: () => import('@/views/admin/storage/pages/recycle/index.vue'),
-            meta: { title: '回收站' }
-          }
-        ]
+        ],
       },
       {
-        path: 'settings',
-        name: 'settings',
-        component: () => import('@/views/admin/settings/index.vue'),
-        meta: { title: '设置', icon: 'settings-3-fill', color: '#4d7df7', noTransition: true },
-        redirect: { name: 'settings-profile' },
+        path: 'system',
+        name: 'admin-system',
+        redirect: { name: 'admin-system-performance' },
+        meta: { title: '系统管理', icon: 'settings-5-fill' },
         children: [
           {
-            path: 'profile',
-            name: 'settings-profile',
-            component: () => import('@/views/admin/settings/profile/index.vue'),
-            meta: { title: '个人信息', icon: 'settings-3-fill' }
+            path: 'performance',
+            name: 'admin-system-performance',
+            component: () => import('@/views/admin/system/performance/index.vue'),
+            meta: { title: '性能监控', icon: 'log-fill' },
           },
           {
-            path: 'admin',
-            name: 'settings-admin',
-            component: () => import('@/views/admin/settings/admin/index.vue'),
-            meta: { title: '后台设置', icon: 'settings-3-fill' }
+            path: 'setting',
+            name: 'admin-system-setting',
+            component: () => import('@/views/admin/system/setting/index.vue'),
+            meta: { title: '系统设置', icon: 'settings-fill' },
           },
           {
-            path: 'system',
-            name: 'settings-system',
-            component: () => import('@/views/admin/settings/system/index.vue'),
-            meta: { title: '系统设置', icon: 'settings-3-fill' }
-          }
-        ]
+            path: 'api-log',
+            name: 'admin-system-api-log',
+            component: () => import('@/views/admin/system/api-log/index.vue'),
+            meta: { title: 'API日志', icon: 'log-fill' },
+          },
+        ],
       },
       {
         path: 'dev',
-        name: 'dev',
-        meta: { title: '开发', icon: 'file-code-fill', color: '#4fa1e6', isDev: true },
-        redirect: { name: 'dev-icon' },
+        name: 'admin-dev',
+        redirect: { name: 'admin-dev-list' },
+        meta: { title: '开发管理', isDev: true, icon: 'code-box-fill' },
         children: [
           {
             path: 'icon',
-            name: 'dev-icon',
+            name: 'admin-dev-icon',
             component: () => import('@/views/admin/dev/icon/index.vue'),
-            meta: { title: '图标', icon: 'money-dollar-circle-line' }
-          }
-        ]
-      }
-    ]
-  }
+            meta: { title: '图标大全', icon: 'icon-fill' },
+          },
+        ],
+      },
+    ],
+  },
 ]
 
 export default ADMIN_ROUTES

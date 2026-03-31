@@ -2,20 +2,26 @@ import type { CommDatum } from './comm'
 import { FileEnumType } from '@/data/enum/file'
 
 export namespace FileType {
-  export interface FileDatum extends CommDatum {
-    id: string
-    uid: string
+  export type FileType = 'image' | 'video' | 'document' | 'archive'
+  export type FileStatus = '正常' | '待审核' | '已归档' | '同步中'
+
+  export interface FileDatum {
+    id: number
     name: string
-    origin_name: string
-    path: string
-    size: number
     extension: string
-    storage_type: string
-    uri: string
-    mime_type: string
-    parent_id?: string
-    file_type: FileEnumType
-    hash: string
+    path: string
+    bucket: string
+    owner: string
+    type: FileType
+    typeLabel: string
+    strategy: string
+    providerClass: string
+    size: string
+    downloads: string
+    status: FileStatus
+    updatedAt: string
+    isNew?: boolean
+    tags: string[]
   }
 
   export type FileDetail = {

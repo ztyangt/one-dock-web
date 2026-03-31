@@ -1,236 +1,121 @@
-@use 'sass:map';
-// 全局主题变量配置 误删 ！！！
-$white-color: #fff;
-$black-color: #000;
-
-// 主题色
-$base-success: #40b308;
-$base-warning: #faad14;
-$base-danger: #e64340;
-$base-error: #db2828;
-$base-info: #909399;
-
-//圆角
-$base-border-radius: 5px;
-
-// 日夜间主题模式
-$curTheme: light;
-
-$themes: (
-  light: (
-    themeColor: #2d5cf6,
-    mainBg: #f3f4f8,
-    iconColor: #a5aecd,
-    mainColor: #f2f5f7,
-    cardBg: #ffffff,
-    secondaryBg: #f0f2f9,
-    textColor: #1d2556,
-    textColor2: #636e96,
-    weightColor: #1d2556,
-    pureColor: #000,
-    // 反色
-    inverseColor: #fff,
-    borderColor: #c4c4c435,
-    lightBorder: #e6e6e6,
-    mutedColor: #abaec1,
-    titleColor: #2d3670,
-    keyColor: #333333,
-    rippleColor: #969ab1,
-    scrollColor: #dddee0,
-    tableBg: #fcfcfc,
-    secondaryColor: #828282,
-
-    shadow: rgba(0, 0, 0, 0.09) 0px 1px 20px 0px
-  ),
-  dark: (
-    themeColor: #4d7cf7,
-    mainBg: #1c1f27,
-    iconColor: #8488a2,
-    mainColor: #21252c,
-    cardBg: #292d37,
-    secondaryBg: #353a48,
-    weightColor: #ffffff,
-    textColor: #ddddfa,
-    textColor2: #70799b,
-    pureColor: #fff,
-    inverseColor: #000,
-    secondaryColor: #a2a2a4,
-
-    borderColor: #343942,
-    lightBorder: #4b4e53,
-    mutedColor: #6f7581,
-    titleColor: #e4ecf9,
-    keyColor: #f8fafc,
-    rippleColor: #b3b3cf,
-    scrollColor: #4b4e53,
-    tableBg: #292d35,
-    shadow: rgba(0, 0, 0, 0.4) 0px 1px 20px 0px
-  )
-);
-
-@function getVal($key) {
-  $themeMap: map.get($themes, $curTheme);
-  @return map.get($themeMap, $key);
-}
-
-@mixin useTheme() {
-  @each $key, $value in $themes {
-    $curTheme: $key !global;
-    // html[data-theme="#{$key}"] & {
-    //   @content;
-    // }
-    html.#{$key} & {
-      @content;
-    }
-  }
-}
-
-body {
-  @include useTheme {
-    --main-bg: #{getVal(mainBg)};
-    --pure-color: #{getVal(pureColor)};
-    --icon-color: #{getVal(iconColor)};
-    --main-color: #{getVal(mainColor)};
-    --title-color: #{getVal(titleColor)};
-    --ripple-color: #{getVal(rippleColor)};
-    --secondary-bg: #{getVal(secondaryBg)};
-    --card-bg: #{getVal(cardBg)};
-    --weight-color: #{getVal(weightColor)};
-    --text-color: #{getVal(textColor)};
-    --text-color-2: #{getVal(textColor2)};
-    --border-color: #{getVal(borderColor)};
-    --light-border: #{getVal(lightBorder)};
-    --key-color: #{getVal(keyColor)};
-    --table-bg: #{getVal(tableBg)};
-    --shadow: #{getVal(shadow)};
-    --pure-light-bg: #{rgba(getVal(pureColor), 0.04)};
-    --secondary-color: #{getVal(secondaryColor)};
-    --muted-color: #{getVal(mutedColor)};
-
-    --theme-color: #{getVal(themeColor)};
-
-    --color-bg-2: #{getVal(cardBg)};
-    --color-bg-3: #{getVal(cardBg)};
-    --color-bg-5: #{getVal(cardBg)};
-
-    @for $i from 1 through 9 {
-      --card-bg-opacity-#{$i}: #{rgba(getVal(cardBg), calc($i / 10))};
-      --theme-color-opacity-#{$i}: #{rgba(getVal(themeColor), calc($i / 10))};
-      // --color-primary-light-#{$i}: #{rgba(getVal(themeColor), calc($i / 10))};
-    }
-
-    --theme-hover-bg: #{rgba(getVal(themeColor), 0.1)};
-
-    color: var(--text-color);
-
-    .hover-weight {
-      &:hover {
-        color: getVal(weightColor);
-      }
-    }
-
-    .secondary-color {
-      color: getVal(secondaryColor);
-    }
-
-    .text-color {
-      color: getVal(textColor);
-    }
-    .text-color-2 {
-      color: getVal(textColor2);
-    }
-    .main-bg {
-      background-color: getVal(mainBg);
-    }
-    .muted-color {
-      color: getVal(mutedColor);
-    }
-    .delete-color {
-      color: var(--danger-color);
-    }
-    .border-color {
-      color: getVal(borderColor);
-    }
-    .light-border {
-      border: 1px solid getVal(lightBorder);
-    }
-    .scroll-color {
-      color: getVal(scrollColor);
-    }
-    .card-bg {
-      background-color: getVal(cardBg);
-    }
-    .card-border {
-      border: 1px solid getVal(cardBorder);
-    }
-    .card-shadow {
-      box-shadow: #{getVal(cardShadow)};
-    }
-    .hover-bg {
-      &:hover {
-        background-color: getVal(secondaryBg);
-      }
-    }
-
-    .secondary-bg {
-      background-color: getVal(secondaryBg);
-    }
-    .title-color {
-      color: getVal(titleColor);
-    }
-    .icon-color {
-      color: getVal(iconColor);
-    }
-    .shadow {
-      box-shadow: getVal(shadow);
-    }
-
-    .base-border {
-      border: 1px solid getVal(borderColor);
-    }
-
-    .pure-light-bg {
-      background-color: var(--pure-light-bg);
-    }
-
-    .hover-light-bg {
-      transition: all 0.3s;
-      &:hover {
-        background-color: var(--pure-light-bg);
-      }
-    }
-  }
-
-  .theme-hover {
-    transition: all 0.3s;
-    &:hover {
-      color: var(--theme-color) !important;
-    }
-  }
-
-  --plyr-color-main: var(--theme-color);
-  --plyr-menu-background: var(--card-bg);
-  --plyr-menu-color: var(--text-color);
-  --plyr-audio-control-color: var(--text-color);
-  --plyr-tooltip-color: var(--text-color);
-  --plyr-tooltip-background: var(--card-bg);
-}
-
 :root {
-  --success-color: #{$base-success};
-  --warning-color: #{$base-warning};
-  --danger-color: #{$base-danger};
+  --color-bg: #f8fafc;
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+  --color-success: #10b981;
 
-  .theme-color {
-    color: var(--theme-color);
-  }
-  .success-color {
-    color: var(--success-color);
-  }
-  .warning-color {
-    color: var(--warning-color);
-  }
-  .error-color {
-    color: var(--error-color);
-  }
+  --color-panel: rgba(255, 255, 255, 0.75);
+  --color-strip: rgba(255, 255, 255, 0.5);
+  --color-tag: #f1f5f9;
+  --color-logo-bg: #ffffff;
+  --color-pill: #ffffff;
+  --color-pill-hover: #ffffff;
+
+  --color-primary-text: #0284c7;
+  --color-primary-bg: rgba(14, 165, 233, 0.1);
+  --color-primary-border: rgba(14, 165, 233, 0.2);
+  --color-primary-solid: #0ea5e9;
+
+
+  /* 新增：主按钮变量 (亮色) */
+  --color-btn-bg: #0ea5e9;
+  --color-btn-text: #ffffff;
+  --color-btn-hover: #0284c7;
+  --color-input-bg: rgba(255, 255, 255, 0.6);
+
+  --color-border: rgba(226, 232, 240, 0.8);
+  --color-tag-border: rgba(0, 0, 0, 0.03);
+  --color-logo-border: rgba(0, 0, 0, 0.05);
+  --color-pill-border-hover: rgba(14, 165, 233, 0.3);
+
+  --color-headline-start: #0f172a;
+  --color-headline-end: #334155;
+  --color-pill-text: #334155;
+  --color-footer-closing: #94a3b8;
+
+  --color-grid: rgba(15, 23, 42, 0.03);
+  --color-glow-1: rgba(14, 165, 233, 0.12);
+  --color-glow-2: rgba(56, 189, 248, 0.12);
+  --color-success-glow: rgba(16, 185, 129, 0.4);
+  --color-success-glow-end: rgba(16, 185, 129, 0);
+
+  --highlight-panel: inset 0 1px 0 rgba(255, 255, 255, 1);
+  --shadow-panel:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 20px 40px -10px rgba(14, 165, 233, 0.1);
+  --shadow-panel-hover:
+    0 6px 12px -2px rgba(0, 0, 0, 0.05),
+    0 30px 50px -15px rgba(14, 165, 233, 0.15);
+  --shadow-logo: 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-pill: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-pill-hover: 0 4px 12px rgba(14, 165, 233, 0.08);
+
+  --highlight-panel: inset 0 1px 0 rgba(255, 255, 255, 1);
+  --shadow-panel: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 10px 15px -3px rgba(14, 165, 233, 0.05);
+  --shadow-float: 0 10px 25px -5px rgba(14, 165, 233, 0.15);
+  --shadow-popover: 0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 0 15px rgba(14, 165, 233, 0.05);
+
+  --logo-filter: none;
+
+}
+
+html.dark {
+  --color-bg: #090e17;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-success: #34d399;
+
+  --color-panel: rgba(30, 41, 59, 0.65);
+  --color-strip: rgba(15, 23, 42, 0.4);
+  --color-tag: rgba(255, 255, 255, 0.06);
+  --color-logo-bg: #1e293b;
+  --color-pill: rgba(15, 23, 42, 0.6);
+  --color-pill-hover: rgba(15, 23, 42, 0.8);
+
+  --color-primary-text: #7dd3fc;
+  --color-primary-bg: rgba(56, 189, 248, 0.1);
+  --color-primary-border: rgba(56, 189, 248, 0.2);
+  --color-primary-solid: #38bdf8;
+
+  /* 新增：主按钮变量 (暗色) */
+  --color-btn-bg: #38bdf8;
+  --color-btn-text: #0f172a;
+  --color-btn-hover: #7dd3fc;
+  --color-input-bg: rgba(15, 23, 42, 0.5);
+
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-tag-border: rgba(255, 255, 255, 0.05);
+  --color-logo-border: rgba(255, 255, 255, 0.05);
+  --color-pill-border-hover: rgba(56, 189, 248, 0.4);
+
+  --color-headline-start: #ffffff;
+  --color-headline-end: #94a3b8;
+  --color-pill-text: #e2e8f0;
+  --color-footer-closing: #64748b;
+
+  --color-grid: rgba(255, 255, 255, 0.025);
+  --color-glow-1: rgba(14, 165, 233, 0.15);
+  --color-glow-2: rgba(56, 189, 248, 0.15);
+  --color-success-glow: rgba(52, 211, 153, 0.4);
+  --color-success-glow-end: rgba(52, 211, 153, 0);
+
+  --highlight-panel: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-panel:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  --shadow-panel-hover:
+    0 6px 12px -2px rgba(0, 0, 0, 0.4),
+    0 30px 50px -15px rgba(0, 0, 0, 0.6),
+    0 0 40px -10px rgba(14, 165, 233, 0.15);
+  --shadow-logo: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-pill: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-pill-hover:
+    0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --highlight-panel: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-panel: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 30px -5px rgba(14, 165, 233, 0.15);
+  --shadow-popover: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+
+
+  --logo-filter: invert(1);
 }

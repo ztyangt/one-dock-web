@@ -5,11 +5,11 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
-// import Components from 'unplugin-vue-components/vite'
+import Components from 'unplugin-vue-components/vite'
 // import glsl from 'vite-plugin-glsl'
-import { vitePluginForArco } from '@arco-plugins/vite-vue'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
+import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -25,6 +25,21 @@ export default defineConfig(({ mode }) => {
         // 显式添加要监视的 node_modules
         ignored: ['./node_modules/@wiit/**'],
       },
+
+      proxy: {
+        '/api': {
+          target: env.APP_BASE_API || 'http://127.0.0.1:9527',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\//, ''),
+        },
+        '/sources': {
+          target: env.APP_BASE_API || 'http://127.0.0.1:9527',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\//, ''),
+        },
+      },
     },
     plugins: [
       vue(),
@@ -35,13 +50,10 @@ export default defineConfig(({ mode }) => {
         dirs: ['src/hooks', 'src/utils', 'src/enum', 'src/apis', 'src/stores/*.ts'],
         resolvers: [],
       }),
-      // Components({
-      //   dts: 'unplugin/components.d.ts',
-      //   dirs: ['src/components', 'src/views/**/**/components', 'src/layouts/**/components'],
-      //   resolvers: [],
-      // }),
-      vitePluginForArco({
-        style: 'css',
+      Components({
+        dts: 'unplugin/components.d.ts',
+        // dirs: ['src/components', 'src/views/**/**/components', 'src/layouts/**/components'],
+        resolvers: [PrimeVueResolver()],
       }),
       createSvgIconsPlugin({
         // 指定 SVG图标 保存的文件夹路径
@@ -53,6 +65,7 @@ export default defineConfig(({ mode }) => {
         bundler: 'vite',
         editor: 'trae',
         showSwitch: true,
+        hideConsole: true,
       }),
       // vueJsx(),
       // vueDevTools(),
@@ -70,6 +83,7 @@ export default defineConfig(({ mode }) => {
           additionalData: `
            @use "~/assets/styles/theme.scss" as *;
            @use "~/assets/styles/media.scss" as *;
+           @use "~/assets/styles/prime.scss" as *;
            `,
         },
       },
@@ -84,10 +98,10 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
-      minify: 'esbuild',
+      // minify: 'esbuild',
       // minify: 'terser',
       // // 打包后的文件
-      outDir: env.APP_OUT_DIR || 'dist',
+      // outDir: env.APP_OUT_DIR || 'dist',
       assetsDir: 'static',
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1800,

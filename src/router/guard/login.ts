@@ -2,31 +2,42 @@ import type {
   LocationQueryRaw,
   RouteLocationNormalizedGeneric,
   RouteLocationNormalizedLoadedGeneric,
-  NavigationGuardNext,
-} from "vue-router";
-import type { Router } from "vue-router";
+  NavigationGuard,
+} from 'vue-router'
+import type { Router } from 'vue-router'
 
-const jumpLogin = (to: RouteLocationNormalizedGeneric, from: RouteLocationNormalizedLoadedGeneric, next: NavigationGuardNext) => {
+const jumpLogin = (
+  to: RouteLocationNormalizedGeneric,
+  from: RouteLocationNormalizedLoadedGeneric,
+): ReturnType<NavigationGuard> => {
   if (to.meta.needLogin) {
-    next({
-      name: "login",
+    return {
+      name: 'login',
       query: {
         redirect: encodeURIComponent(to.fullPath),
         ...to.query,
       } as LocationQueryRaw,
-    });
-  } else next();
-};
+    }
+  }
+  return true
+}
 
 export default function setupUserLoginInfoGuard(router: Router) {
-  router.beforeEach((to, from, next) => {
-    const userStore = useUserStore();
+  router.beforeEach((to, from) => {
+    const userStore = useUserStore()
+
     if (userStore.hasLogin) {
-      if (to.name === "login" || to.name === "Login") next({ name: "Admin" });
-      else next();
+      // 已登录状态
+      if (to.name === 'login' || to.name === 'Login') {
+        return { name: 'Main' }
+      }
+      return true
     } else {
-      if (to.name === "login" || to.name === "Login") next();
-      else jumpLogin(to, from, next);
+      // 未登录状态
+      if (to.name === 'login' || to.name === 'Login') {
+        return true
+      }
+      return jumpLogin(to, from)
     }
-  });
+  })
 }

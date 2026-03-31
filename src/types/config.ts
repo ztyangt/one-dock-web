@@ -1,7 +1,7 @@
 export namespace ConfigType {
-  export interface Datum {
-    key: string
+  export interface Datum<T = any> {
+    config_key: string
     name: string
-    value: Record<string, any>
+    value: T
   }
 }

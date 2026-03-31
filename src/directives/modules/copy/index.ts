@@ -1,6 +1,5 @@
-import { Message } from '@arco-design/web-vue'
 import type { Directive, DirectiveBinding } from 'vue'
-// import { ElMessage } from 'element-plus'
+import { useToast } from 'primevue/usetoast'
 interface ElType extends HTMLElement {
   copyData: string | number
   __handleClick__: any
@@ -14,7 +13,9 @@ function handleClick(this: any) {
   input.select()
   document.execCommand('Copy')
   document.body.removeChild(input)
-  Message.success('复制成功')
+  const toast = useToast()
+
+  toast.add({ severity: 'info', summary: '复制成功', detail: '已成功复制' })
 }
 
 export default {
@@ -27,5 +28,5 @@ export default {
   },
   beforeUnmount(el: ElType) {
     el.removeEventListener('click', el.__handleClick__)
-  }
+  },
 }

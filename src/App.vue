@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { useDevice } from "@/hooks/use-device";
 import { useEmitter } from '@/hooks/use-emitter'
 import { useDocumentHead } from '@/hooks/use-document-head'
 import { useSystemStore } from '@/stores/system'

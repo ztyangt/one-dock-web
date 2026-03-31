@@ -23,7 +23,7 @@ export default async function setupPageGuard(router: Router) {
       if (pageTitle) {
         pageTitle = `${to.meta.title}-${pageTitle}`
       } else {
-        pageTitle = to.meta.title
+        pageTitle = to.meta.title as string
       }
     } else {
       pageTitle = pageTitle || '相左工作室'

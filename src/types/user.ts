@@ -19,12 +19,17 @@ export namespace UserType {
 
   export type UserInfo = {
     id: number
-    uid: string
     nickname: string
     email: string
     avatar: string
+    account: string
     description: string
     gender: UserEnum.Gender
+  }
+
+  export type UserLoginInfo = {
+    token: string
+    user: UserInfo
   }
 
   export type JwtData = {

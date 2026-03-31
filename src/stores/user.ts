@@ -1,11 +1,11 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { UserType } from '@/types/user'
-import { Message } from '@arco-design/web-vue'
 import { jwtDecode } from 'jwt-decode'
 import Router from '@/router'
 import Cookies from 'js-cookie'
 import { userApi } from '@/apis/modues/user'
+import { useToast } from 'primevue/usetoast'
 
 export const useUserStore = defineStore(
   'user-store',
@@ -13,6 +13,7 @@ export const useUserStore = defineStore(
     const loading = ref(false)
     const token = ref<string>()
     const user = ref<UserType.UserInfo>()
+    const toast = useToast()
 
     const hasLogin = computed(() => {
       return !!token.value && !!user.value
@@ -23,29 +24,22 @@ export const useUserStore = defineStore(
       if (token.value) {
         const payload = jwtDecode<UserType.JwtData>(token.value)
         if (payload.exp < Date.now()) {
-          Message.warning('登录过期，请重新登录！')
+          toast.add({ severity: 'info', summary: '登录过期，请重新登录！', life: 2000 })
           logout()
         }
       }
     }
 
     // 登录
-    const login = async (account: string, password: string) => {
+    const login = async (params: any) => {
       loading.value = true
 
-      const { code, data } = await userApi.login({ account, password })
+      const { code, data } = await userApi.login(params)
       loading.value = false
       if (code === 200) {
-        Message.success('登录成功！')
+        toast.add({ severity: 'success', summary: '登录成功！', life: 2000 })
         token.value = data.token
         user.value = data.user
-
-        // const systemStore = useSystemStore()
-
-        // Cookies.set('Authorization', token.value || '', {
-        //   path: '/',
-        //   expires: 3600 * 12
-        // })
 
         if (Router.currentRoute.value.query.redirect) {
           Router.replace(decodeURIComponent(Router.currentRoute.value.query.redirect as string))
@@ -61,7 +55,7 @@ export const useUserStore = defineStore(
       Cookies.remove('Authorization', { path: '/' })
       Router.replace({
         name: 'login',
-        query: { redirect: encodeURIComponent(Router.currentRoute.value.fullPath) }
+        query: { redirect: encodeURIComponent(Router.currentRoute.value.fullPath) },
       })
     }
 
@@ -72,7 +66,7 @@ export const useUserStore = defineStore(
       hasLogin,
       init,
       login,
-      logout
+      logout,
     }
   },
   {
@@ -80,8 +74,8 @@ export const useUserStore = defineStore(
       {
         key: 'USER-STORE',
         pick: ['user', 'token', 'no'],
-        storage: localStorage
-      }
-    ]
-  }
+        storage: localStorage,
+      },
+    ],
+  },
 )
