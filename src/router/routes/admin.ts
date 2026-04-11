@@ -81,7 +81,7 @@ const ADMIN_ROUTES: RouteRecordRaw[] = [
             path: 'strategy',
             name: 'admin-file-strategy',
             component: () => import('@/views/admin/file/strategy/index.vue'),
-            meta: { title: '统计策略', icon: 'database-2-fill' },
+            meta: { title: '存储策略', icon: 'database-2-fill' },
           },
           {
             path: 'upload',

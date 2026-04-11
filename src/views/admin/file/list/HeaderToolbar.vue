@@ -1,5 +1,5 @@
 <template>
-  <div class="drive-toolbar">
+  <div class="drive-toolbar br-8">
     <div class="breadcrumb">
       <button type="button" class="bc-btn">首页</button>
       <svg class="bc-sep" viewBox="0 0 20 20" fill="currentColor" width="12" height="12">
@@ -85,38 +85,38 @@ const { keyword, sortBy, viewMode } = storeToRefs(fileListStore)
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 11px 20px;
+  padding: 10px;
   background: var(--color-panel);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-panel);
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
 .bc-btn {
   all: unset;
   font-size: 13px;
   color: var(--color-text-muted);
-  padding: 3px 6px;
-  border-radius: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition:
     background 0.15s,
     color 0.15s;
 
   &:hover {
-    background: var(--color-primary-bg);
-    color: var(--color-primary-text);
+    background: var(--color-tag);
+    color: var(--color-text-main);
   }
 }
 
 .bc-sep {
   color: var(--color-text-muted);
-  opacity: 0.35;
+  opacity: 0.4;
   flex-shrink: 0;
 }
 
@@ -124,7 +124,7 @@ const { keyword, sortBy, viewMode } = storeToRefs(fileListStore)
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text-main);
-  padding: 3px 6px;
+  padding: 4px 8px;
 }
 
 .toolbar-right {
@@ -138,7 +138,7 @@ const { keyword, sortBy, viewMode } = storeToRefs(fileListStore)
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: var(--color-input-bg);
+  background: var(--color-tag);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   transition: border-color 0.15s;
@@ -167,7 +167,7 @@ const { keyword, sortBy, viewMode } = storeToRefs(fileListStore)
 .sort-select {
   appearance: none;
   padding: 6px 28px 6px 10px;
-  background-color: var(--color-input-bg);
+  background-color: var(--color-tag);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 8px center;
@@ -186,9 +186,10 @@ const { keyword, sortBy, viewMode } = storeToRefs(fileListStore)
 
 .view-toggle {
   display: flex;
-  border: 1px solid var(--color-border);
+  gap: 2px;
+  background: var(--color-tag);
+  padding: 2px;
   border-radius: 8px;
-  overflow: hidden;
 }
 
 .toggle-btn {
@@ -196,25 +197,21 @@ const { keyword, sortBy, viewMode } = storeToRefs(fileListStore)
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
   color: var(--color-text-muted);
   cursor: pointer;
   transition:
     background 0.15s,
     color 0.15s;
 
-  & + .toggle-btn {
-    border-left: 1px solid var(--color-border);
-  }
-
   &:hover {
-    background: var(--color-tag);
     color: var(--color-text-main);
   }
 
   &.active {
-    background: var(--color-primary-bg);
+    background: var(--color-logo-bg);
     color: var(--color-primary-text);
   }
 }

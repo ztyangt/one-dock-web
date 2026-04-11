@@ -163,9 +163,9 @@ export const cos_region_options = [
 export const strategy_options = [
   { label: '本地存储', value: StrategyEnumType.LOCAL },
   { label: '腾讯云COS', value: StrategyEnumType.COS },
-  { label: '阿里云OSS', value: StrategyEnumType.OSS }
-  // { label: '七牛云KODO', value: StrategyEnumType.KODO },
-  // { label: '华为云OBS', value: StrategyEnumType.OBS },
-  // { label: '亚马逊S3', value: StrategyEnumType.S3 },
-  // { label: '又拍云', value: StrategyEnumType.UPYUN }
+  { label: '阿里云OSS', value: StrategyEnumType.OSS },
+  { label: '华为云OBS', value: StrategyEnumType.OBS },
+  { label: '七牛云Kodo', value: StrategyEnumType.KODO },
+  { label: '又拍云', value: StrategyEnumType.UPYUN },
+  { label: '亚马逊S3', value: StrategyEnumType.S3 }
 ]

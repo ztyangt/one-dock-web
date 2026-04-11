@@ -1,5 +1,5 @@
 <template>
-  <aside class="drive-sidebar px-20 py-25">
+  <aside class="drive-sidebar px-10 py-15 br-8">
     <div class="sidebar-head">
       <button class="btn-upload" type="button">
         <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15">
@@ -29,6 +29,7 @@
         :class="{ active: typeFilter === nav.key }"
         type="button"
         @click="typeFilter = nav.key"
+        v-ripple
       >
         <span class="nav-icon" v-html="nav.icon" />
         <span class="nav-label">{{ nav.label }}</span>
@@ -96,8 +97,8 @@ const navItems = computed(() => [
   display: flex;
   flex-direction: column;
   background: var(--color-panel);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-panel);
   overflow-y: auto;
 }
 
@@ -119,22 +120,15 @@ const navItems = computed(() => [
   padding: 9px 16px;
   background: var(--color-btn-bg);
   color: var(--color-btn-text);
-  border-radius: 9px;
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.01em;
-  transition:
-    background 0.18s,
-    transform 0.12s;
+  transition: background 0.18s;
 
   &:hover {
     background: var(--color-btn-hover);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 }
 
@@ -148,10 +142,11 @@ const navItems = computed(() => [
   width: 100%;
   padding: 8px 16px;
   border: 1px solid var(--color-border);
-  border-radius: 9px;
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 500;
   color: var(--color-text-main);
+  background: transparent;
   cursor: pointer;
   transition:
     background 0.18s,
@@ -169,7 +164,6 @@ const navItems = computed(() => [
   margin-top: 20px;
   padding: 13px 12px 12px;
   background: var(--color-tag);
-  border: 1px solid var(--color-border);
   border-radius: 10px;
 }
 
@@ -195,7 +189,7 @@ const navItems = computed(() => [
 
 .storage-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary-solid), #38bdf8);
+  background: var(--color-primary-solid);
   border-radius: 3px;
   transition: width 0.6s ease;
 }
@@ -255,15 +249,14 @@ const navItems = computed(() => [
     min-width: 20px;
     text-align: center;
     font-size: 11px;
-    font-weight: 500;
-    padding: 2px 7px;
-    border-radius: 20px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 6px;
     background: var(--color-tag);
-    border: 1px solid var(--color-border);
+    border: 1px solid transparent;
     color: var(--color-text-muted);
     transition:
       background 0.15s,
-      border-color 0.15s,
       color 0.15s;
   }
 
@@ -273,6 +266,11 @@ const navItems = computed(() => [
 
     .nav-icon {
       opacity: 1;
+    }
+
+    .nav-count {
+      background: var(--color-logo-bg);
+      color: var(--color-text-main);
     }
   }
 
@@ -286,8 +284,7 @@ const navItems = computed(() => [
     }
 
     .nav-count {
-      background: var(--color-primary-border);
-      border-color: transparent;
+      background: var(--color-logo-bg);
       color: var(--color-primary-text);
     }
   }

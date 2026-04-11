@@ -67,3 +67,52 @@ export namespace FileType {
     files?: UploadFile[]
   }
 }
+
+export namespace StorageStrategyType {
+  export type ProviderType =
+    | 'local'
+    | 'cos'
+    | 'oss'
+    | 'kodo'
+    | 'upyun'
+    | 'obs'
+    | 's3'
+
+  export interface StorageStrategy {
+    id: number
+    name: string
+    type: ProviderType
+    typeLabel: string
+    bucket: string
+    region: string
+    endpoint: string
+    access_key: string
+    secret_key: string
+    domain: string
+    path_prefix: string
+    is_default: boolean
+    status: 'active' | 'inactive' | 'error'
+    statusLabel: string
+    created_at: string
+    updated_at: string
+  }
+
+  export interface StorageStrategyFormData {
+    id?: number
+    name: string
+    type: ProviderType
+    bucket: string
+    region: string
+    endpoint: string
+    access_key: string
+    secret_key: string
+    domain: string
+    path_prefix: string
+    is_default: boolean
+  }
+
+  export interface TestConnectionResult {
+    success: boolean
+    message: string
+  }
+}
